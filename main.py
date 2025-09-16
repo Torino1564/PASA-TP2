@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import SystemIdentification
 
 if __name__ == '__main__':
-    print("Hi")
     from SystemIdentification import *
     import numpy as np
     import scipy.signal as sp
