@@ -21,12 +21,12 @@ class SystemIdentification:
     def SetMu(self, mu):
         self.mu = mu
 
+
     def SetW(self, w_values):
-        self.w_prev = self.w
         self.w = np.array(w_values)
 
 
-    def MSE(self):
+    def ComputeStep(self):
         x = np.array(self.input_signal[self.sample_offset:+self.filter_length])
         y = np.array(self.desired_response[self.sample_offset:+self.filter_length])
         y_var = np.var(y)
@@ -42,6 +42,7 @@ class SystemIdentification:
         r = r[midpoint:midpoint+len(x)]
 
         R = sp.linalg.toeplitz(r[:len(x)])
+        self.w_prev = self.w
 
         MSE = y_var - self.w.T.dot(p) - p.T.dot(self.w) + self.w.T.dot((R.dot(self.w)))
 
